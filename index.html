@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Energy Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Sidebar Nav -->
+  <nav class="sidebar">
+    <!-- Crayon-style sun mascot -->
+    <div class="sidebar-sun" style="display:flex;flex-direction:column;align-items:center;padding:0 22px 20px;margin-bottom:16px;gap:6px;">
+      <svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg" style="animation:blobFloat 5s ease-in-out infinite;">
+        <defs>
+          <filter id="crayonTex" x="-10%" y="-10%" width="120%" height="120%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" result="noise"/>
+            <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
+            <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply" result="blended"/>
+            <feComposite in="blended" in2="SourceGraphic" operator="in"/>
+          </filter>
+          <filter id="crayonRay" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" result="noise"/>
+            <feBlend in="SourceGraphic" in2="noise" mode="multiply" result="blended"/>
+            <feComposite in="blended" in2="SourceGraphic" operator="in"/>
+          </filter>
+        </defs>
+
+        <!-- Rays — chunky rounded blobs at 8 angles, crayon textured -->
+        <g filter="url(#crayonRay)" opacity="0.9">
+          <ellipse cx="31" cy="7"  rx="4" ry="6.5" fill="var(--accent-2)" transform="rotate(0   31 31)"/>
+          <ellipse cx="31" cy="7"  rx="4" ry="6.5" fill="var(--accent-2)" transform="rotate(45  31 31)"/>
+          <ellipse cx="31" cy="7"  rx="4" ry="6.5" fill="var(--accent-2)" transform="rotate(90  31 31)"/>
+          <ellipse cx="31" cy="7"  rx="4" ry="6.5" fill="var(--accent-2)" transform="rotate(135 31 31)"/>
+          <ellipse cx="31" cy="7"  rx="4" ry="6.5" fill="var(--accent-2)" transform="rotate(180 31 31)"/>
+          <ellipse cx="31" cy="7"  rx="4" ry="6.5" fill="var(--accent-2)" transform="rotate(225 31 31)"/>
+          <ellipse cx="31" cy="7"  rx="4" ry="6.5" fill="var(--accent-2)" transform="rotate(270 31 31)"/>
+          <ellipse cx="31" cy="7"  rx="4" ry="6.5" fill="var(--accent-2)" transform="rotate(315 31 31)"/>
+        </g>
+
+        <!-- Sun body — slightly wobbly circle, crayon textured -->
+        <circle cx="31" cy="31" r="16.5" fill="var(--accent-2)" filter="url(#crayonTex)"/>
+        <!-- Inner lighter core (crayon highlight) -->
+        <ellipse cx="27" cy="25" rx="9" ry="7" fill="#fff" opacity="0.18" filter="url(#crayonTex)" transform="rotate(-15 27 25)"/>
+
+        <!-- Eyes — simple dots -->
+        <circle cx="26.5" cy="30" r="2"   fill="#3A1A00"/>
+        <circle cx="35.5" cy="30" r="2"   fill="#3A1A00"/>
+        <!-- Eye shine -->
+        <circle cx="27.3" cy="29.2" r="0.75" fill="#fff"/>
+        <circle cx="36.3" cy="29.2" r="0.75" fill="#fff"/>
+
+        <!-- Blush — soft crayon smudge -->
+        <ellipse cx="22"  cy="34.5" rx="4.5" ry="2.8" fill="#C46090" opacity="0.38" filter="url(#crayonTex)"/>
+        <ellipse cx="40"  cy="34.5" rx="4.5" ry="2.8" fill="#C46090" opacity="0.38" filter="url(#crayonTex)"/>
+
+        <!-- Smile -->
+        <path d="M25 35.5 Q31 41 37 35.5" stroke="#3A1A00" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span style="font-family:'Nunito',sans-serif;font-size:0.7rem;font-weight:700;color:var(--text-3);letter-spacing:0.08em;text-transform:uppercase;">Social Energy</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#" class="nav-link active" data-view="log">
+        <span class="nav-icon">
+          <!-- Pin icon: Log -->
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 2 L14 6 L9 11 L8 14 L5 11 L2 8 L5 7 Z"/>
+            <line x1="2" y1="14" x2="5" y2="11"/>
+          </svg>
+        </span> Log
+      </a></li>
+      <li><a href="#" class="nav-link" data-view="dashboard">
+        <span class="nav-icon">
+          <!-- Grid/chart icon: Dashboard -->
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="5" height="5" rx="1"/>
+            <rect x="9" y="2" width="5" height="5" rx="1"/>
+            <rect x="2" y="9" width="5" height="5" rx="1"/>
+            <rect x="9" y="9" width="5" height="5" rx="1"/>
+          </svg>
+        </span> Dashboard
+      </a></li>
+      <li><a href="#" class="nav-link" data-view="people">
+        <span class="nav-icon">
+          <!-- Person icon: People -->
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="5" r="3"/>
+            <path d="M2 14 C2 11 5 9 8 9 C11 9 14 11 14 14"/>
+          </svg>
+        </span> People
+      </a></li>
+      <li><a href="#" class="nav-link" data-view="patterns">
+        <span class="nav-icon">
+          <!-- Sparkle/star icon: Patterns -->
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 2 L9.2 6.8 L14 8 L9.2 9.2 L8 14 L6.8 9.2 L2 8 L6.8 6.8 Z"/>
+          </svg>
+        </span> Patterns
+      </a></li>
+    </ul>
+    <div class="sidebar-bottom">
+      <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+        <span id="themeIcon">◑</span>
+      </button>
+      <div>
+        <div class="sidebar-section-label">Colour</div>
+        <div class="theme-swatches">
+          <button class="swatch active" data-color="orange" title="Orange"></button>
+          <button class="swatch" data-color="rose"   title="Rose"></button>
+          <button class="swatch" data-color="sage"   title="Sage"></button>
+          <button class="swatch" data-color="violet" title="Violet"></button>
+          <button class="swatch" data-color="sky"    title="Sky"></button>
+        </div>
+      </div>
+      <div class="export-group">
+        <button class="btn-export" id="exportJson">JSON</button>
+        <button class="btn-export" id="exportCsv">CSV</button>
+        <button class="btn-export btn-import" id="importBtn">Import</button>
+        <input type="file" id="importFile" accept=".json" style="display:none" />
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- VIEW: LOG -->
+    <section class="view active" id="view-log">
+      <div class="view-header">
+        <div class="view-header-left">
+          <div class="date-display">
+            <span class="date-day" id="currentDay"></span>
+            <div class="date-meta">
+              <span class="date-month" id="currentMonth"></span>
+              <span class="date-year" id="currentYear"></span>
+            </div>
+          </div>
+          <p class="view-subtitle">How did that interaction leave you?</p>
+        </div>
+        <div class="view-header-right">
+          <div class="energy-orb-wrap">
+            <div class="energy-orb" id="energyOrb"></div>
+            <span class="energy-orb-label" id="energyOrbLabel">no data today</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-form-wrapper">
+
+        <!-- Baseline -->
+        <div class="form-block" id="baselineBlock">
+          <label class="form-label">Your energy <em>before</em> this interaction</label>
+          <div class="rating-pills" data-group="baseline">
+            <button class="pill" data-value="-5">Drained</button>
+            <button class="pill" data-value="-2">Low</button>
+            <button class="pill" data-value="0">Neutral</button>
+            <button class="pill" data-value="2">Good</button>
+            <button class="pill" data-value="5">Energised</button>
+          </div>
+          <button class="skip-link" id="skipBaseline">Skip baseline</button>
+        </div>
+
+        <!-- Person -->
+        <div class="form-block">
+          <label class="form-label" for="personInput">Who did you interact with?</label>
+          <div class="autocomplete-wrapper">
+            <input type="text" id="personInput" class="text-input" placeholder="Name..." autocomplete="off" />
+            <ul class="autocomplete-list" id="autocompleteList"></ul>
+          </div>
+        </div>
+
+        <!-- Context -->
+        <div class="form-block">
+          <label class="form-label">Context</label>
+          <div class="tag-row" id="contextTags"></div>
+          <div class="add-tag-row">
+            <input type="text" id="newTagInput" class="text-input text-input--sm" placeholder="Add custom tag..." />
+            <button class="btn-ghost" id="addTagBtn">+ Add</button>
+          </div>
+        </div>
+
+        <!-- Energy After -->
+        <div class="form-block">
+          <label class="form-label">Energy <em>after</em> the interaction</label>
+          <div class="rating-pills" data-group="after">
+            <button class="pill" data-value="-5">Drained</button>
+            <button class="pill" data-value="-2">Low</button>
+            <button class="pill" data-value="0">Neutral</button>
+            <button class="pill" data-value="2">Good</button>
+            <button class="pill" data-value="5">Energised</button>
+          </div>
+        </div>
+
+        <!-- Note -->
+        <div class="form-block">
+          <label class="form-label">Note <span class="optional">(optional)</span></label>
+          <textarea class="text-input text-input--area" id="noteInput" placeholder="Anything worth remembering..."></textarea>
+        </div>
+
+        <button class="btn-primary" id="saveBtn">Save interaction</button>
+        <p class="save-feedback" id="saveFeedback"></p>
+      </div>
+    </section>
+
+    <!-- VIEW: DASHBOARD -->
+    <section class="view" id="view-dashboard">
+      <div class="view-header">
+        <h2 class="view-title">Dashboard</h2>
+        <div class="period-toggle">
+          <button class="period-btn active" data-period="week">Week</button>
+          <button class="period-btn" data-period="month">Month</button>
+          <button class="period-btn" data-period="all">All time</button>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <span class="stat-value" id="statTotal">—</span>
+          <span class="stat-label">Interactions</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="statAvg">—</span>
+          <span class="stat-label">Avg delta</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="statBest">—</span>
+          <span class="stat-label">Top recharger</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="statDrain">—</span>
+          <span class="stat-label">Top drainer</span>
+        </div>
+      </div>
+
+      <div class="insight-card" id="insightCard"></div>
+
+      <div class="charts-grid">
+        <div class="chart-card chart-card--wide">
+          <h3 class="chart-title">Energy trend</h3>
+          <canvas id="trendChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3 class="chart-title">Context breakdown</h3>
+          <canvas id="contextChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3 class="chart-title">Energy delta distribution</h3>
+          <canvas id="distChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW: PEOPLE -->
+    <section class="view" id="view-people">
+      <div class="view-header">
+        <h2 class="view-title">People</h2>
+        <input type="text" id="peopleSearch" class="text-input text-input--sm" placeholder="Search person..." />
+      </div>
+      <div class="people-grid" id="peopleGrid"></div>
+    </section>
+
+    <!-- VIEW: PATTERNS -->
+    <section class="view" id="view-patterns">
+      <div class="view-header">
+        <h2 class="view-title">Patterns</h2>
+        <p class="view-subtitle">Statistical insights across your interactions</p>
+      </div>
+      <div class="patterns-grid" id="patternsGrid">
+        <div class="pattern-card" id="patternDayOfWeek">
+          <h3 class="chart-title">Energy by day of week</h3>
+          <canvas id="dowChart"></canvas>
+        </div>
+        <div class="pattern-card" id="patternTimeOfDay">
+          <h3 class="chart-title">Energy by time of day</h3>
+          <canvas id="todChart"></canvas>
+        </div>
+        <div class="pattern-card pattern-card--wide" id="patternHeatmap">
+          <h3 class="chart-title">Interaction heatmap (last 12 weeks)</h3>
+          <div id="heatmapGrid"></div>
+        </div>
+        <div class="pattern-card" id="patternCorrelation">
+          <h3 class="chart-title">Baseline vs delta correlation</h3>
+          <canvas id="corrChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="data.js"></script>
+  <script src="charts.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // ── Colour theme swatches ──────────────────────────────
+    (function() {
+      const swatches = document.querySelectorAll('.swatch');
+      const saved = localStorage.getItem('set_color') || 'orange';
+      document.documentElement.dataset.color = saved === 'orange' ? '' : saved;
+      swatches.forEach(s => s.classList.toggle('active', s.dataset.color === saved));
+
+      swatches.forEach(s => {
+        s.addEventListener('click', () => {
+          const c = s.dataset.color;
+          localStorage.setItem('set_color', c);
+          document.documentElement.dataset.color = c === 'orange' ? '' : c;
+          swatches.forEach(x => x.classList.toggle('active', x === s));
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
