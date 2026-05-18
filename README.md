@@ -5,6 +5,7 @@
 **Track how your interactions affect your energy. No server. No account. No noise.**
 
 *A personal tool for introverts, empaths, and anyone who's ever left a conversation wondering - wait, why am I exhausted?*
+
 </div>
 
 ---
@@ -20,23 +21,27 @@ Over time, the app builds a picture of which people and contexts leave you recha
 ## Features
 
 **Log view**
+<br>
 Rate your energy before and after each interaction on a −5 → +5 scale. Tag it by context (Work, Family, Friends, etc). Add a note if something's worth remembering. The orb in the corner reflects your running average for the day — green when you're net positive, red when you're running low.
 
 **Dashboard**
+<br>
 Energy trend line, context breakdown, and a delta distribution chart. Filter by the last week, month, or all time. A short auto-generated insight appears when the data has something to say.
 
 **People**
+<br>
 Every person you've logged appears here with their average energy delta and a coloured bar. Search to find anyone instantly.
 
 **Patterns**
-Dig deeper — energy by day of week, time of day, a 12-week heatmap, and a scatter chart comparing your baseline mood to how much each interaction shifted it.
+<br>
+Dig deeper. Energy by day of week, time of day, a 12-week heatmap, and a scatter chart comparing your baseline mood to how much each interaction shifted it.
 
 ---
 
 ## Design
 
 - Grainy gradient backgrounds (soft radial blobs + SVG fractal noise overlay)
-- Five colour themes — Orange, Rose, Sage, Violet, Sky — switchable via sidebar swatches
+- Five colour themes (Orange, Rose, Sage, Violet, Sky), switchable via sidebar swatches
 - Full light / dark mode with a smooth 550ms crossfade
 - Rounded, friendly Nunito typography
 - Springy pill and tag interactions (`cubic-bezier` overshoot easing)
@@ -87,6 +92,14 @@ You can export as **JSON** (for re-importing later) or **CSV** (for spreadsheets
 ## Why I built this
 
 I kept noticing patterns in how I felt after social interactions but had no way to actually track them. I wanted something small, private, and honest — not a wellness app with streaks and gamification, just a quiet log I could look back on.
+
+---
+
+## Work in progress
+
+This is an early version — the UI and UX are still basic. As I keep building and refining it, this repo will be updated. Features, visuals, and interactions will evolve over time.
+
+If you're looking at this mid-journey, that's intentional. It's a living project.
 
 ---
 
